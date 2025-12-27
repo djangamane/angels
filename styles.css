@@ -96,6 +96,11 @@ img {
   filter: drop-shadow(0 0 12px rgba(255, 46, 109, 0.4));
 }
 
+.logo-mark {
+  width: 60px;
+  height: 60px;
+}
+
 .brand-text {
   display: flex;
   flex-direction: column;
@@ -400,6 +405,17 @@ h1 {
   background: rgba(255, 255, 255, 0.03);
 }
 
+.logo-tile {
+  background: linear-gradient(135deg, rgba(255, 46, 109, 0.15), rgba(36, 232, 255, 0.1));
+  border-style: solid;
+}
+
+.logo-tile img {
+  width: min(240px, 70%);
+  height: auto;
+  filter: drop-shadow(0 0 18px rgba(255, 46, 109, 0.4));
+}
+
 .gallery-tile.tall {
   grid-column: span 5;
   min-height: 320px;
@@ -493,6 +509,12 @@ h1 {
 .footer-grid h3,
 .footer-grid h4 {
   margin-bottom: 10px;
+}
+
+.footer-logo {
+  width: min(180px, 70%);
+  margin-bottom: 14px;
+  filter: drop-shadow(0 0 18px rgba(255, 46, 109, 0.35));
 }
 
 .footer-grid a {
