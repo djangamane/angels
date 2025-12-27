@@ -346,6 +346,10 @@ h1 {
   display: block;
 }
 
+.event-media img.spotlight-face {
+  object-position: center 30%;
+}
+
 .event-body {
   padding: 24px;
 }
