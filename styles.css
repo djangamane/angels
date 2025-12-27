@@ -327,7 +327,7 @@ h1 {
 }
 
 .event-media {
-  height: 180px;
+  height: 220px;
   display: grid;
   place-items: center;
   background: linear-gradient(135deg, rgba(255, 46, 109, 0.2), rgba(36, 232, 255, 0.2));
@@ -342,6 +342,7 @@ h1 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -411,26 +412,69 @@ h1 {
   color: var(--rose);
 }
 
-.gallery-grid {
+.carousel-wrap {
+  margin-top: 32px;
+}
+
+.carousel {
+  --count: 5;
+  --step: calc(360deg / var(--count));
+  --radius: clamp(180px, 32vw, 360px);
+  --angle: 0deg;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: minmax(56px, auto) 1fr minmax(56px, auto);
+  align-items: center;
   gap: 16px;
 }
 
-.gallery-tile {
-  grid-column: span 4;
-  min-height: 200px;
+.carousel-stage {
+  position: relative;
+  width: 100%;
+  height: clamp(280px, 48vw, 440px);
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--radius) * -1)) rotateY(var(--angle));
+  transition: transform 0.8s ease;
+}
+
+.carousel-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(200px, 30vw, 280px);
+  height: clamp(240px, 36vw, 340px);
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%) rotateY(calc(var(--index) * var(--step)))
+    translateZ(var(--radius));
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
   background: rgba(255, 255, 255, 0.03);
 }
 
-.gallery-tile img {
+.carousel-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
+}
+
+.carousel-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--ink);
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.carousel-btn:hover,
+.carousel-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.16);
 }
 
 .amenities {
@@ -577,12 +621,21 @@ h1 {
     flex-direction: column;
   }
 
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .carousel {
+    grid-template-columns: 1fr;
+    justify-items: center;
   }
 
-  .gallery-tile {
-    grid-column: span 2;
+  .carousel-stage {
+    grid-row: 1;
+  }
+
+  .carousel-btn.prev {
+    grid-row: 2;
+  }
+
+  .carousel-btn.next {
+    grid-row: 3;
   }
 
   .contact-form {
@@ -593,7 +646,8 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .btn,
-  .btn-primary {
+  .btn-primary,
+  .carousel-stage {
     animation: none;
     transition: none;
   }
