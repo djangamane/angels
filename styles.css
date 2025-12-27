@@ -465,6 +465,31 @@ h1 {
   display: block;
 }
 
+.carousel.is-flat {
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+.carousel.is-flat .carousel-stage {
+  height: auto;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 8px 4px 16px;
+  transform: none;
+}
+
+.carousel.is-flat .carousel-card {
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+  flex: 0 0 clamp(220px, 80vw, 320px);
+  height: clamp(260px, 70vw, 360px);
+  scroll-snap-align: center;
+}
+
 .carousel-btn {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -624,11 +649,6 @@ h1 {
 
   .hero-notes {
     flex-direction: column;
-  }
-
-  .carousel {
-    grid-template-columns: 1fr;
-    justify-items: center;
   }
 
   .carousel-stage {

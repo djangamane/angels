@@ -4,13 +4,19 @@ if (carousel) {
   const cards = Array.from(carousel.querySelectorAll(".carousel-card"));
   const prevBtn = carousel.querySelector(".carousel-btn.prev");
   const nextBtn = carousel.querySelector(".carousel-btn.next");
+  const stage = carousel.querySelector(".carousel-stage");
   const count = cards.length;
   let index = 0;
   let timer = null;
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const flatQuery = window.matchMedia("(max-width: 720px)");
+  let isFlat = flatQuery.matches;
 
   const update = () => {
     if (!count) {
+      return;
+    }
+    if (isFlat) {
       return;
     }
     const step = 360 / count;
@@ -19,7 +25,7 @@ if (carousel) {
   };
 
   const updateRadius = () => {
-    if (!count) {
+    if (!count || isFlat) {
       return;
     }
     const card = carousel.querySelector(".carousel-card");
@@ -40,7 +46,7 @@ if (carousel) {
   };
 
   const startAuto = () => {
-    if (prefersReduced || count < 2) {
+    if (prefersReduced || count < 2 || isFlat) {
       return;
     }
     stopAuto();
@@ -50,25 +56,55 @@ if (carousel) {
     }, 4200);
   };
 
+  const scrollByCard = (direction) => {
+    if (!stage) {
+      return;
+    }
+    const card = stage.querySelector(".carousel-card");
+    const width = card ? card.getBoundingClientRect().width : 260;
+    stage.scrollBy({ left: direction * (width + 16), behavior: "smooth" });
+  };
+
+  const applyMode = () => {
+    isFlat = flatQuery.matches;
+    carousel.classList.toggle("is-flat", isFlat);
+    if (isFlat) {
+      stopAuto();
+    } else {
+      updateRadius();
+      update();
+      startAuto();
+    }
+  };
+
   if (count) {
     carousel.style.setProperty("--count", count);
-    updateRadius();
     update();
+    applyMode();
 
     prevBtn?.addEventListener("click", () => {
-      index = (index - 1 + count) % count;
-      update();
+      if (isFlat) {
+        scrollByCard(-1);
+      } else {
+        index = (index - 1 + count) % count;
+        update();
+      }
     });
 
     nextBtn?.addEventListener("click", () => {
-      index = (index + 1) % count;
-      update();
+      if (isFlat) {
+        scrollByCard(1);
+      } else {
+        index = (index + 1) % count;
+        update();
+      }
     });
 
     carousel.addEventListener("mouseenter", stopAuto);
     carousel.addEventListener("mouseleave", startAuto);
     carousel.addEventListener("focusin", stopAuto);
     carousel.addEventListener("focusout", startAuto);
+    flatQuery.addEventListener("change", applyMode);
     window.addEventListener("resize", updateRadius);
     startAuto();
   }
