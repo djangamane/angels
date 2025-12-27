@@ -18,6 +18,20 @@ if (carousel) {
     carousel.style.setProperty("--angle", `${angle}deg`);
   };
 
+  const updateRadius = () => {
+    if (!count) {
+      return;
+    }
+    const card = carousel.querySelector(".carousel-card");
+    const cardWidth = card ? card.getBoundingClientRect().width : 220;
+    const spacing = 20;
+    const minRadius = 260;
+    const maxRadius = 640;
+    const idealRadius = (count * (cardWidth + spacing)) / (2 * Math.PI);
+    const radius = Math.min(maxRadius, Math.max(minRadius, idealRadius));
+    carousel.style.setProperty("--radius", `${Math.round(radius)}px`);
+  };
+
   const stopAuto = () => {
     if (timer) {
       window.clearInterval(timer);
@@ -38,6 +52,7 @@ if (carousel) {
 
   if (count) {
     carousel.style.setProperty("--count", count);
+    updateRadius();
     update();
 
     prevBtn?.addEventListener("click", () => {
@@ -54,6 +69,7 @@ if (carousel) {
     carousel.addEventListener("mouseleave", startAuto);
     carousel.addEventListener("focusin", stopAuto);
     carousel.addEventListener("focusout", startAuto);
+    window.addEventListener("resize", updateRadius);
     startAuto();
   }
 }

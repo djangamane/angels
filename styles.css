@@ -423,12 +423,13 @@ h1 {
 .carousel {
   --count: 5;
   --step: calc(360deg / var(--count));
-  --radius: clamp(180px, 32vw, 360px);
+  --radius: clamp(240px, 40vw, 520px);
   --angle: 0deg;
   display: grid;
   grid-template-columns: minmax(56px, auto) 1fr minmax(56px, auto);
   align-items: center;
   gap: 16px;
+  perspective: 1200px;
 }
 
 .carousel-stage {
@@ -444,8 +445,8 @@ h1 {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: clamp(200px, 30vw, 280px);
-  height: clamp(240px, 36vw, 340px);
+  width: clamp(180px, 26vw, 250px);
+  height: clamp(220px, 32vw, 320px);
   transform-style: preserve-3d;
   transform: translate(-50%, -50%) rotateY(calc(var(--index) * var(--step)))
     translateZ(var(--radius));
