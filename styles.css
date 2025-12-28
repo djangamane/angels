@@ -143,6 +143,10 @@ img {
   width: 100%;
 }
 
+.nav-links a.is-active {
+  color: var(--ink);
+}
+
 .nav-cta {
   display: flex;
   align-items: center;
@@ -237,6 +241,23 @@ h1 {
   gap: 16px;
   font-size: 0.9rem;
   color: var(--muted);
+}
+
+.page-hero {
+  padding: 160px 0 80px;
+  background: linear-gradient(135deg, rgba(255, 46, 109, 0.2), transparent 55%),
+    radial-gradient(circle at 70% 10%, rgba(36, 232, 255, 0.18), transparent 50%);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gold);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 20px;
 }
 
 .btn {
@@ -507,6 +528,86 @@ h1 {
   background: rgba(255, 255, 255, 0.16);
 }
 
+.simple-carousel {
+  display: grid;
+  grid-template-columns: minmax(56px, auto) 1fr minmax(56px, auto);
+  gap: 16px;
+  align-items: center;
+}
+
+.simple-carousel-viewport {
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 3, 6, 0.7);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+}
+
+.simple-carousel-track {
+  display: flex;
+  transition: transform 0.6s ease;
+}
+
+.simple-slide {
+  min-width: 100%;
+  aspect-ratio: 16 / 9;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(255, 46, 109, 0.2), rgba(36, 232, 255, 0.18));
+}
+
+.simple-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.slide-placeholder {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+}
+
+.simple-carousel-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--ink);
+  padding: 12px 16px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  cursor: pointer;
+  height: fit-content;
+}
+
+.simple-carousel-btn:hover,
+.simple-carousel-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.simple-carousel-dots {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.simple-carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.simple-carousel-dot.is-active {
+  background: var(--gold);
+}
+
 .amenities {
   display: grid;
   gap: 32px;
@@ -661,6 +762,22 @@ h1 {
 
   .carousel-btn.next {
     grid-row: 3;
+  }
+
+  .page-hero {
+    padding-top: 180px;
+  }
+
+  .simple-carousel {
+    grid-template-columns: 1fr;
+  }
+
+  .simple-carousel-btn.prev {
+    order: 2;
+  }
+
+  .simple-carousel-btn.next {
+    order: 3;
   }
 
   .contact-form {
