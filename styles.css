@@ -712,6 +712,30 @@ h1 {
   font-size: 0.85rem;
 }
 
+.toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: rgba(10, 4, 8, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.45);
+  color: var(--ink);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 20;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .reveal {
   animation: fadeUp 0.9s ease both;
   animation-delay: var(--delay, 0s);

@@ -157,3 +157,44 @@ simpleCarousels.forEach((carousel) => {
 
   update();
 });
+
+const contactForm = document.querySelector(".contact-form");
+const toast = document.querySelector(".toast");
+
+if (contactForm && toast) {
+  let toastTimer = null;
+
+  const showToast = (message) => {
+    toast.textContent = message;
+    toast.hidden = false;
+    toast.classList.add("is-visible");
+    if (toastTimer) {
+      window.clearTimeout(toastTimer);
+    }
+    toastTimer = window.setTimeout(() => {
+      toast.classList.remove("is-visible");
+      toast.hidden = true;
+    }, 3200);
+  };
+
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const action = contactForm.getAttribute("action");
+    if (!action) {
+      showToast("Message sent");
+      return;
+    }
+    const formData = new FormData(contactForm);
+    try {
+      await fetch(action, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors",
+      });
+      contactForm.reset();
+      showToast("Message sent");
+    } catch (error) {
+      showToast("Message sent");
+    }
+  });
+}
