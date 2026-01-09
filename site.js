@@ -11,6 +11,7 @@ if (carousel) {
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const flatQuery = window.matchMedia("(max-width: 720px)");
   let isFlat = flatQuery.matches;
+  let flatCards = [];
 
   const update = () => {
     if (!count) {
@@ -56,13 +57,37 @@ if (carousel) {
     }, 4200);
   };
 
-  const scrollByCard = (direction) => {
-    if (!stage) {
+  const getClosestFlatIndex = () => {
+    if (!stage || !flatCards.length) {
+      return 0;
+    }
+    const scrollLeft = stage.scrollLeft;
+    let closest = 0;
+    let delta = Number.POSITIVE_INFINITY;
+    flatCards.forEach((card, i) => {
+      const distance = Math.abs(card.offsetLeft - scrollLeft);
+      if (distance < delta) {
+        delta = distance;
+        closest = i;
+      }
+    });
+    return closest;
+  };
+
+  const scrollToFlatIndex = (nextIndex) => {
+    if (!stage || !flatCards.length) {
       return;
     }
-    const card = stage.querySelector(".carousel-card");
-    const width = card ? card.getBoundingClientRect().width : 260;
-    stage.scrollBy({ left: direction * (width + 16), behavior: "smooth" });
+    const target = flatCards[nextIndex];
+    if (!target) {
+      return;
+    }
+    const left = target.offsetLeft;
+    try {
+      stage.scrollTo({ left, behavior: "smooth" });
+    } catch (error) {
+      stage.scrollLeft = left;
+    }
   };
 
   const applyMode = () => {
@@ -70,6 +95,8 @@ if (carousel) {
     carousel.classList.toggle("is-flat", isFlat);
     if (isFlat) {
       stopAuto();
+      flatCards = stage ? Array.from(stage.querySelectorAll(".carousel-card")) : [];
+      index = getClosestFlatIndex();
     } else {
       updateRadius();
       update();
@@ -84,7 +111,9 @@ if (carousel) {
 
     prevBtn?.addEventListener("click", () => {
       if (isFlat) {
-        scrollByCard(-1);
+        index = getClosestFlatIndex();
+        index = (index - 1 + count) % count;
+        scrollToFlatIndex(index);
       } else {
         index = (index - 1 + count) % count;
         update();
@@ -93,7 +122,9 @@ if (carousel) {
 
     nextBtn?.addEventListener("click", () => {
       if (isFlat) {
-        scrollByCard(1);
+        index = getClosestFlatIndex();
+        index = (index + 1) % count;
+        scrollToFlatIndex(index);
       } else {
         index = (index + 1) % count;
         update();
@@ -120,12 +151,18 @@ simpleCarousels.forEach((carousel) => {
   const dotsWrap = carousel.parentElement?.querySelector("[data-simple-carousel-dots]");
   const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll(".simple-carousel-dot")) : [];
   let index = 0;
+  let slidePositions = [];
+
+  const syncPositions = () => {
+    slidePositions = slides.map((slide) => slide.offsetLeft);
+  };
 
   const update = () => {
     if (!slides.length) {
       return;
     }
-    track.style.transform = `translateX(-${index * 100}%)`;
+    const offset = slidePositions[index] ?? 0;
+    track.style.transform = `translateX(-${offset}px)`;
     slides.forEach((slide, i) => {
       slide.setAttribute("aria-hidden", i !== index ? "true" : "false");
     });
@@ -155,7 +192,12 @@ simpleCarousels.forEach((carousel) => {
     });
   });
 
+  syncPositions();
   update();
+  window.addEventListener("resize", () => {
+    syncPositions();
+    update();
+  });
 });
 
 const contactForm = document.querySelector(".contact-form");
