@@ -25,3 +25,9 @@ future imagery.
 3. Select Framework Preset: "Other".
 4. Build Command: leave empty.
 5. Output Directory: `.`
+
+## Upload videos to Vercel Blob
+1. Create a Vercel Blob store and copy the `BLOB_READ_WRITE_TOKEN`.
+2. Install deps: `npm install`
+3. Set env vars: copy `.env.example` to `.env` and fill in the token.
+4. Upload: `npm run upload:blob`

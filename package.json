@@ -1,0 +1,12 @@
+{
+  "name": "angels-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "upload:blob": "node scripts/upload-blob.mjs"
+  },
+  "dependencies": {
+    "@vercel/blob": "^0.23.4",
+    "dotenv": "^16.4.5"
+  }
+}
