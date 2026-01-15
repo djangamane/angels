@@ -240,3 +240,44 @@ if (contactForm && toast) {
     }
   });
 }
+
+const introGate = document.querySelector("[data-intro-gate]");
+
+if (introGate) {
+  const introVideo = introGate.querySelector("video");
+  const enterBtn = introGate.querySelector("[data-intro-enter]");
+  const skipBtn = introGate.querySelector("[data-intro-skip]");
+  const storageKey = "introSeen";
+
+  const dismissIntro = () => {
+    introGate.classList.add("is-hidden");
+    document.body.classList.remove("is-locked");
+    try {
+      sessionStorage.setItem(storageKey, "1");
+    } catch (error) {
+      // Ignore storage failures.
+    }
+    window.setTimeout(() => {
+      introGate.remove();
+    }, 450);
+  };
+
+  let seen = false;
+  try {
+    seen = sessionStorage.getItem(storageKey) === "1";
+  } catch (error) {
+    seen = false;
+  }
+
+  if (seen) {
+    introGate.remove();
+  } else {
+    document.body.classList.add("is-locked");
+    enterBtn?.addEventListener("click", dismissIntro);
+    skipBtn?.addEventListener("click", dismissIntro);
+    if (introVideo) {
+      introVideo.addEventListener("ended", dismissIntro);
+      introVideo.addEventListener("error", dismissIntro);
+    }
+  }
+}

@@ -25,6 +25,10 @@ body {
   min-height: 100vh;
 }
 
+body.is-locked {
+  overflow: hidden;
+}
+
 body::before,
 body::after {
   content: "";
@@ -170,6 +174,67 @@ img {
   align-items: center;
   padding-top: 120px;
   overflow: hidden;
+}
+
+.intro-gate {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 50;
+  overflow: hidden;
+  background: #050206;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.intro-gate.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.intro-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.1) contrast(1.05);
+}
+
+.intro-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      120deg,
+      rgba(6, 2, 6, 0.86) 10%,
+      rgba(6, 2, 6, 0.4) 55%,
+      rgba(6, 2, 6, 0.9) 100%
+    ),
+    radial-gradient(circle at 20% 20%, rgba(255, 46, 109, 0.35), transparent 45%);
+}
+
+.intro-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  width: min(720px, 90vw);
+}
+
+.intro-content h1 {
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+}
+
+.intro-sub {
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.intro-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 28px;
+  flex-wrap: wrap;
 }
 
 .hero-video {
