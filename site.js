@@ -145,24 +145,25 @@ const simpleCarousels = document.querySelectorAll("[data-simple-carousel]");
 
 simpleCarousels.forEach((carousel) => {
   const track = carousel.querySelector(".simple-carousel-track");
+  const viewport = carousel.querySelector(".simple-carousel-viewport");
   const slides = track ? Array.from(track.children) : [];
   const prevBtn = carousel.querySelector(".simple-carousel-btn.prev");
   const nextBtn = carousel.querySelector(".simple-carousel-btn.next");
   const dotsWrap = carousel.parentElement?.querySelector("[data-simple-carousel-dots]");
   const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll(".simple-carousel-dot")) : [];
   let index = 0;
-  let slidePositions = [];
+  let viewportWidth = 0;
 
-  const syncPositions = () => {
-    slidePositions = slides.map((slide) => slide.offsetLeft);
+  const syncMeasurements = () => {
+    viewportWidth = viewport ? viewport.getBoundingClientRect().width : 0;
   };
 
   const update = () => {
-    if (!slides.length) {
+    if (!slides.length || !viewportWidth) {
       return;
     }
-    const offset = slidePositions[index] ?? 0;
-    track.style.transform = `translateX(-${offset}px)`;
+    const offset = Math.round(index * viewportWidth);
+    track.style.transform = `translate3d(-${offset}px, 0, 0)`;
     slides.forEach((slide, i) => {
       slide.setAttribute("aria-hidden", i !== index ? "true" : "false");
     });
@@ -192,10 +193,14 @@ simpleCarousels.forEach((carousel) => {
     });
   });
 
-  syncPositions();
+  syncMeasurements();
   update();
   window.addEventListener("resize", () => {
-    syncPositions();
+    syncMeasurements();
+    update();
+  });
+  window.addEventListener("load", () => {
+    syncMeasurements();
     update();
   });
 });

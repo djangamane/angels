@@ -214,25 +214,27 @@ img {
 }
 
 .intro-content {
-  position: relative;
+  position: absolute;
   z-index: 1;
-  text-align: center;
-  width: min(720px, 90vw);
+  text-align: left;
+  width: min(560px, 90vw);
+  left: clamp(20px, 6vw, 72px);
+  bottom: clamp(24px, 8vh, 80px);
 }
 
 .intro-content h1 {
-  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  font-size: clamp(2rem, 4.6vw, 3.2rem);
 }
 
 .intro-sub {
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
 }
 
 .intro-status {
   margin-top: 16px;
   color: var(--gold);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
 }
@@ -240,7 +242,7 @@ img {
 .intro-actions {
   display: flex;
   gap: 16px;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 28px;
   flex-wrap: wrap;
 }
