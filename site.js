@@ -247,9 +247,23 @@ if (introGate) {
   const introVideo = introGate.querySelector("video");
   const enterBtn = introGate.querySelector("[data-intro-enter]");
   const skipBtn = introGate.querySelector("[data-intro-skip]");
+  const status = introGate.querySelector("[data-intro-status]");
   const storageKey = "introSeen";
+  let dismissed = false;
+
+  const setStatus = (message) => {
+    if (!status) {
+      return;
+    }
+    status.textContent = message;
+    status.hidden = !message;
+  };
 
   const dismissIntro = () => {
+    if (dismissed) {
+      return;
+    }
+    dismissed = true;
     introGate.classList.add("is-hidden");
     document.body.classList.remove("is-locked");
     try {
@@ -276,8 +290,22 @@ if (introGate) {
     enterBtn?.addEventListener("click", dismissIntro);
     skipBtn?.addEventListener("click", dismissIntro);
     if (introVideo) {
+      const tryPlay = () => {
+        const playPromise = introVideo.play();
+        if (playPromise && typeof playPromise.then === "function") {
+          playPromise
+            .then(() => setStatus(""))
+            .catch(() => setStatus("Tap Enter to start video"));
+        }
+      };
+
+      setStatus("Loading video...");
+      tryPlay();
+      introVideo.addEventListener("loadeddata", tryPlay);
+      introVideo.addEventListener("canplay", tryPlay);
+      introVideo.addEventListener("playing", () => setStatus(""));
       introVideo.addEventListener("ended", dismissIntro);
-      introVideo.addEventListener("error", dismissIntro);
+      introVideo.addEventListener("error", () => setStatus("Video failed to load"));
     }
   }
 }

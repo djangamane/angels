@@ -229,6 +229,14 @@ img {
   font-size: 1.05rem;
 }
 
+.intro-status {
+  margin-top: 16px;
+  color: var(--gold);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
 .intro-actions {
   display: flex;
   gap: 16px;
