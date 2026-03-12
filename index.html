@@ -211,6 +211,9 @@
               <li>Premium seating with stage views</li>
             </ul>
             <a class="btn btn-primary" href="#contact">Inquire about VIP</a>
+            <button class="btn btn-drawing" type="button" data-open-drawing>
+              Click here to enter VIP Package drawing
+            </button>
           </div>
         </div>
       </section>
@@ -430,6 +433,37 @@
         © 2024 Angels Cabaret and Cigar Bar. All rights reserved.
       </p>
     </footer>
+    <!-- VIP Drawing Modal -->
+    <div class="drawing-overlay" data-drawing-overlay hidden>
+      <div class="drawing-modal" role="dialog" aria-modal="true" aria-labelledby="drawing-title">
+        <button class="drawing-close" type="button" data-close-drawing aria-label="Close">&times;</button>
+        <h2 class="drawing-title" id="drawing-title">VIP Party Drawing</h2>
+        <p class="drawing-desc">We would love to hear from you! Please fill out this form and we will get in touch with you shortly.</p>
+        <form class="drawing-form" data-drawing-form action="https://hook.us2.make.com/nduie6hlouosw1j15o6kh2dh45jipl2m" method="post">
+          <input type="hidden" name="form_type" value="vip_drawing" />
+          <div class="drawing-name-row">
+            <label class="drawing-label">
+              <span>First</span>
+              <input type="text" name="first_name" placeholder=" " required />
+            </label>
+            <label class="drawing-label">
+              <span>Last</span>
+              <input type="text" name="last_name" placeholder=" " required />
+            </label>
+          </div>
+          <label class="drawing-label">
+            <span>Email</span>
+            <input type="email" name="email" placeholder=" " required />
+          </label>
+          <label class="drawing-label">
+            <span>Phone</span>
+            <input type="tel" name="phone" placeholder=" " />
+          </label>
+          <button class="btn btn-primary drawing-submit" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+
     <div class="toast" role="status" aria-live="polite" hidden>
       Message sent
     </div>

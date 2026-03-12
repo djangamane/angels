@@ -799,6 +799,130 @@ h1 {
   font-size: 0.85rem;
 }
 
+.btn-drawing {
+  background: transparent;
+  border: 1px solid var(--rose);
+  color: var(--rose);
+  margin-top: 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-drawing:hover,
+.btn-drawing:focus-visible {
+  background: rgba(255, 46, 109, 0.12);
+  color: #ff7fb0;
+}
+
+.drawing-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 2, 6, 0.88);
+  backdrop-filter: blur(6px);
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.drawing-overlay[hidden] {
+  display: none;
+}
+
+.drawing-modal {
+  background: #0d0608;
+  border: 1px solid rgba(255, 46, 109, 0.25);
+  border-radius: 20px;
+  padding: 40px 36px 36px;
+  width: min(520px, 100%);
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+}
+
+.drawing-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.drawing-close:hover {
+  color: var(--ink);
+}
+
+.drawing-title {
+  font-family: "Cinzel", "Times New Roman", serif;
+  color: var(--rose);
+  margin-bottom: 12px;
+  font-size: 1.6rem;
+}
+
+.drawing-desc {
+  color: var(--ink);
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.drawing-form {
+  display: grid;
+  gap: 18px;
+}
+
+.drawing-name-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.drawing-label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.drawing-label input {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 12px 14px;
+  color: #111;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.drawing-label input:focus {
+  outline: 2px solid var(--rose);
+  outline-offset: 1px;
+}
+
+.drawing-submit {
+  margin-top: 6px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+  .drawing-name-row {
+    grid-template-columns: 1fr;
+  }
+
+  .drawing-modal {
+    padding: 32px 22px 28px;
+  }
+}
+
 .toast {
   position: fixed;
   right: 24px;

@@ -246,6 +246,63 @@ if (contactForm && toast) {
   });
 }
 
+// VIP Drawing Modal
+const drawingOverlay = document.querySelector("[data-drawing-overlay]");
+const drawingForm = document.querySelector("[data-drawing-form]");
+
+if (drawingOverlay) {
+  const openBtns = document.querySelectorAll("[data-open-drawing]");
+  const closeBtns = document.querySelectorAll("[data-close-drawing]");
+
+  const openDrawing = () => {
+    drawingOverlay.hidden = false;
+    document.body.classList.add("is-locked");
+    drawingOverlay.querySelector("input")?.focus();
+  };
+
+  const closeDrawing = () => {
+    drawingOverlay.hidden = true;
+    document.body.classList.remove("is-locked");
+  };
+
+  openBtns.forEach((btn) => btn.addEventListener("click", openDrawing));
+  closeBtns.forEach((btn) => btn.addEventListener("click", closeDrawing));
+
+  drawingOverlay.addEventListener("click", (e) => {
+    if (e.target === drawingOverlay) closeDrawing();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !drawingOverlay.hidden) closeDrawing();
+  });
+
+  if (drawingForm) {
+    drawingForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const action = drawingForm.getAttribute("action");
+      const formData = new FormData(drawingForm);
+      try {
+        if (action) {
+          await fetch(action, { method: "POST", body: formData, mode: "no-cors" });
+        }
+        drawingForm.reset();
+        closeDrawing();
+        if (toast) {
+          toast.textContent = "You've been entered!";
+          toast.hidden = false;
+          toast.classList.add("is-visible");
+          window.setTimeout(() => {
+            toast.classList.remove("is-visible");
+            toast.hidden = true;
+          }, 3200);
+        }
+      } catch (error) {
+        closeDrawing();
+      }
+    });
+  }
+}
+
 const introGate = document.querySelector("[data-intro-gate]");
 
 if (introGate) {
