@@ -31,9 +31,9 @@ if (carousel) {
     }
     const card = carousel.querySelector(".carousel-card");
     const cardWidth = card ? card.getBoundingClientRect().width : 220;
-    const spacing = 20;
+    const spacing = 40;
     const minRadius = 260;
-    const maxRadius = 640;
+    const maxRadius = 840;
     const idealRadius = (count * (cardWidth + spacing)) / (2 * Math.PI);
     const radius = Math.min(maxRadius, Math.max(minRadius, idealRadius));
     carousel.style.setProperty("--radius", `${Math.round(radius)}px`);

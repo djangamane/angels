@@ -537,7 +537,7 @@ h1 {
   grid-template-columns: minmax(56px, auto) 1fr minmax(56px, auto);
   align-items: center;
   gap: 16px;
-  perspective: 1200px;
+  perspective: 2000px;
 }
 
 .carousel-stage {
@@ -553,7 +553,7 @@ h1 {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: clamp(180px, 26vw, 250px);
+  width: clamp(160px, 22vw, 220px);
   height: clamp(220px, 32vw, 320px);
   transform-style: preserve-3d;
   transform: translate(-50%, -50%) rotateY(calc(var(--index) * var(--step)))
