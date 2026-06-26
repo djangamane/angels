@@ -303,6 +303,32 @@ if (drawingOverlay) {
   }
 }
 
+// July 4 VIP List form
+const july4Form = document.querySelector("[data-july4-form]");
+
+if (july4Form && toast) {
+  july4Form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const action = july4Form.getAttribute("action");
+    const formData = new FormData(july4Form);
+    try {
+      if (action) {
+        await fetch(action, { method: "POST", body: formData, mode: "no-cors" });
+      }
+      july4Form.reset();
+    } catch (error) {
+      // Ignore network failures; submission is fire-and-forget (no-cors).
+    }
+    toast.textContent = "You're on the VIP list!";
+    toast.hidden = false;
+    toast.classList.add("is-visible");
+    window.setTimeout(() => {
+      toast.classList.remove("is-visible");
+      toast.hidden = true;
+    }, 3200);
+  });
+}
+
 const introGate = document.querySelector("[data-intro-gate]");
 
 if (introGate) {

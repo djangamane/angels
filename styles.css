@@ -1040,3 +1040,83 @@ h1 {
     transition: none;
   }
 }
+
+/* JULY 4 PROMO — remove with the matching block in index.html after the holiday */
+.july4 {
+  border-top: 1px solid rgba(36, 232, 255, 0.25);
+  border-bottom: 1px solid rgba(255, 46, 109, 0.25);
+}
+
+.july4-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.july4-flyer img {
+  width: 100%;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+  display: block;
+}
+
+.july4-signup {
+  background: rgba(14, 7, 11, 0.8);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 32px;
+}
+
+.july4-signup h3 {
+  margin: 0 0 6px;
+  font-family: "Cinzel", serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.july4-note {
+  margin: 0 0 20px;
+  color: var(--cyan);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.july4-form {
+  display: grid;
+  gap: 16px;
+}
+
+.july4-form label {
+  display: grid;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.july4-form input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--ink);
+  font-family: inherit;
+}
+
+.july4-form input:focus {
+  outline: none;
+  border-color: var(--rose);
+}
+
+.july4-form .full {
+  width: 100%;
+  margin-top: 4px;
+}
+
+@media (max-width: 720px) {
+  .july4-grid {
+    grid-template-columns: 1fr;
+  }
+}
